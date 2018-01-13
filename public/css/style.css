@@ -58,10 +58,10 @@ form {
 	margin-top: 50px;
 }
 #signature a:link {
-	color: black;
+	color: black
 }
 #signature a:visited {
-	color: rgb(216, 142, 92);
+	color: slategrey;
 }
 #signature a:hover {
 	color: #e6e22b;
