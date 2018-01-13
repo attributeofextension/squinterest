@@ -15,9 +15,6 @@ mongoose.Promise = global.Promise;
 //Mongoose schema
 //Users
 var userSchema = new mongoose.Schema({
-	name:String,
-	email:String,
-	password: String,
 	twitterId: String
 },{collection:'users'});
 var User = mongoose.model("User",userSchema);
@@ -117,11 +114,11 @@ app.get('/', function (req, res) {
 
 });
 app.post("/add", function(req,res) {
-//  if(req.user) {
+  if(req.user) {
     var newPic = new Pic();
     newPic.url = req.body.picurl;
     newPic.description = req.body.picdesc;  
-    newPic.userid = "test";
+    newPic.userid = req.user._id;
     newPic.likes = [];
 
     newPic.save( function(err) {
@@ -131,12 +128,12 @@ app.post("/add", function(req,res) {
       }
       res.redirect('/');
     });
-//  } else {
-//    res.redirect('/');
-//  }
+  } else {
+    res.redirect('/');
+  }
 });
 app.get('/my', function(req,res) {
-  Pic.find({userid:"test"}, function(err, pics) {
+  Pic.find({userid:req.user._id}, function(err, pics) {
     if(err) {
       console.log("Error fetching my Pics: " + err);
     }
@@ -145,7 +142,7 @@ app.get('/my', function(req,res) {
   });
 });
 app.post("/like", function(req,res) {
-//  if(req.user) {
+  if(req.user) {
   Pic.findOne({_id:req.body.picid}, function (err, pic) {
     if(err) {
       console.log("Error fetching Pic: " + err);
@@ -153,7 +150,7 @@ app.post("/like", function(req,res) {
     }
     var liked = false;
     for(var i = 0; i < pic.likes.length; i++) {
-      if(pic.likes[i] == "test") {
+      if(pic.likes[i] == req.user._id) {
         liked = true;
         pic.likes.splice(i,1);
       }
@@ -170,12 +167,12 @@ app.post("/like", function(req,res) {
     });
   });
 
-//  } else {
-//    res.redirect('/auth/twitter');
-//  }
+  } else {
+    res.redirect('/auth/twitter');
+  }
 });
 app.post("/delete", function (req,res) {
-//  if(req.user) {
+  if(req.user) {
   Pic.remove({_id:req.body.picid}, function(err) {
     if(err) {
       console.log("Error removing Pic: " + err);
@@ -184,12 +181,10 @@ app.post("/delete", function (req,res) {
     res.redirect('/');
   });
 
-//  } else {
-//    res.redirect('/auth/twitter');
-//  }
+  } else {
+    res.redirect('/auth/twitter');
+  }
 })
-
-
 app.get("/auth/twitter", passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }),
   function(req, res) {
@@ -198,6 +193,6 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 });
 
 //PORT========================================================================
-var listener = app.listen(8080,function() {
+var listener = app.listen(process.env.PORT,function() {
     console.log("Your app is listening on port " + listener.address().port);
 });

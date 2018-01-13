@@ -27,24 +27,23 @@
       <li class="nav-item">
         <a class="nav-link" href="/">All</a>
       </li>
+      {{#if user}}
       <li class="nav-item">
         <a class="nav-link" href="/my">My Squints</a>
       </li>
       <li class="nav-item dropdown">
-       
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add a Squint</a>
         <div class="dropdown-menu addPicDropdown">
         <form method="post" action="add" enctype="application/x-www-form-urlencoded"> 
             <div class="container addPicInput">
-
                 <input type="url" class="form-control" name="picurl" placeholder="Pic Url.." required>
                 <input type="text" class="form-control" name="picdesc" placeholder="Pic Description.." required>
-
               <button type="submit" class="btn btn-primary btn-block btn-sm">Send</button>
             </div>
         </form>
         </div>
       </li>
+      {{/if}}
     </ul>
     <ul class="nav justify-content-end">
     {{#if user}}
