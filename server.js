@@ -91,7 +91,7 @@ passport.use(new TwitterStrategy({
         var newUser = new User();
         console.log(JSON.stringify(profile));
         newUser.twitterId = profile.id;
-        newUser.profilePic = profile.photos[0];
+        newUser.profilePic = profile.photos[0].value;
 
         newUser.save(function(err){
            if(err) {
