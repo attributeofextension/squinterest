@@ -15,7 +15,8 @@ mongoose.Promise = global.Promise;
 //Mongoose schema
 //Users
 var userSchema = new mongoose.Schema({
-	twitterId: String
+	twitterId: String,
+  profilePic: String
 },{collection:'users'});
 var User = mongoose.model("User",userSchema);
 //Pics
@@ -23,6 +24,7 @@ var picSchema = new mongoose.Schema({
 	url : String,
   description: String,
   userid : String,
+  userpic : String,
 	likes : [String]
 },{collection:"pics"});
 var Pic = mongoose.model("Pic",picSchema);
@@ -89,6 +91,7 @@ passport.use(new TwitterStrategy({
         var newUser = new User();
         console.log(JSON.stringify(profile));
         newUser.twitterId = profile.id;
+        newUser.profilePic = photos[0];
 
         newUser.save(function(err){
            if(err) {
@@ -121,6 +124,7 @@ app.post("/add", function(req,res) {
     newPic.description = req.body.picdesc;  
     newPic.userid = req.user._id;
     newPic.likes = [];
+    newPic.userpic = req.user.profilePic;
 
     newPic.save( function(err) {
       if(err) {
