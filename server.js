@@ -121,6 +121,6 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 });
 
 //PORT========================================================================
-var listener = app.listen(8080,function() {
+var listener = app.listen(process.env.port,function() {
     console.log("Your app is listening on port " + listener.address().port);
 });
