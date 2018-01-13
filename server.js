@@ -191,7 +191,14 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
     // Successful authentication, redirect home.
     res.redirect('/');
 });
-
+app.get('/logout',function(req,res) {
+  if(req.user) {
+    req.logout();
+    res.redirect('/');
+  } else {
+    res.redirect('/');
+  }
+});
 //PORT========================================================================
 var listener = app.listen(process.env.PORT,function() {
     console.log("Your app is listening on port " + listener.address().port);
