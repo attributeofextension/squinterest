@@ -50,5 +50,23 @@ form {
   width : 20%;
 }
 .profilePic {
-  width : 25px;
+  width : 35px;
+}
+#signature {
+	color: #0F7173;
+	font-size: 12px;
+	margin-top: 50px;
+}
+#signature a:link {
+	color: #EF8354;
+}
+#signature a:visited {
+	color: rgb(216, 142, 92);
+}
+#signature a:hover {
+	color: #e6e22b;
+	text-decoration:none;
+}
+#signature p {
+    line-height : 5px;
 }
