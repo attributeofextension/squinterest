@@ -156,7 +156,7 @@ app.post("/like", function(req,res) {
       }
     }
     if(!liked) {
-      pic.likes.push("test");
+      pic.likes.push(req.user._id);
     }
     pic.save( function (err) {
       if(err) {
