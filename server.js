@@ -87,6 +87,7 @@ passport.use(new TwitterStrategy({
             return cb(null, user);
         } else {
         var newUser = new User();
+        console.log(JSON.stringify(profile));
         newUser.twitterId = profile.id;
 
         newUser.save(function(err){
@@ -137,7 +138,6 @@ app.get('/my', function(req,res) {
     if(err) {
       console.log("Error fetching my Pics: " + err);
     }
-    console.log(pics);
     res.render('my', {user:req.user,pics:pics});
   });
 });
