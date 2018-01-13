@@ -80,7 +80,7 @@ const TwitterStrategy = require('passport-twitter').Strategy;
 passport.use(new TwitterStrategy({
     consumerKey: "x9m8ZXLgfMuFbUlSerNH4E30I",
     consumerSecret: "oTb4KDYkQoT8Mw9Mz2IM7d747h3WrY3a6DoApn1qFBE3bD5MU5",
-    callbackURL: 'localhost:8080/auth/twitter/callback'
+    callbackURL: 'https://squinterest.herokuapp.com/auth/twitter/callback'
   },
   function(token, tokenSecret, profile, cb) {
 
