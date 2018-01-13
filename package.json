@@ -1,0 +1,37 @@
+{
+  "name": "fcc-pinterest-clone",
+  "version": "1.0.0",
+  "description": "fcc pinterest clone challenge https://www.freecodecamp.org/challenges/build-a-pinterest-clone",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attributeofextension/squinterest.git"
+  },
+  "keywords": [
+    "fcc",
+    "pinterest"
+  ],
+  "author": "Leah Carr",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/attributeofextension/squinterest/issues"
+  },
+  "homepage": "https://github.com/attributeofextension/squinterest#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9",
+    "passport": "^0.4.0",
+    "passport-twitter": "^1.0.4"
+  }
+}
