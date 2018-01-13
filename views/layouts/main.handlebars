@@ -13,6 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- FONTAWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- MASONRY.JS -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-toggleable-md navbar-light myNav">
@@ -25,14 +27,24 @@
       <li class="nav-item">
         <a class="nav-link" href="/">All</a>
       </li>
-    {{#if user}} 
       <li class="nav-item">
-        <a class="nav-link" href="/">My Squints</a>
+        <a class="nav-link" href="/my">My Squints</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">Add a Squint</a>
+      <li class="nav-item dropdown">
+       
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Add a Squint</a>
+        <div class="dropdown-menu addPicDropdown">
+        <form method="post" action="add" enctype="application/x-www-form-urlencoded"> 
+            <div class="container addPicInput">
+
+                <input type="url" class="form-control" name="picurl" placeholder="Pic Url.." required>
+                <input type="text" class="form-control" name="picdesc" placeholder="Pic Description.." required>
+
+              <button type="submit" class="btn btn-primary btn-block btn-sm">Send</button>
+            </div>
+        </form>
+        </div>
       </li>
-    {{/if}}
     </ul>
     <ul class="nav justify-content-end">
     {{#if user}}
@@ -48,7 +60,8 @@
   </div>
 </nav>
 
-
-
 {{{body}}}
+
+<script src="/js/main.js"></script>
+
 </body>

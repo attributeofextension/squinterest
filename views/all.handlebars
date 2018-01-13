@@ -1,5 +1,22 @@
 
 <div class="container">
-  <h2>This is a test</h2>
-
+<div class="grid">
+<div class="grid-sizer"></div>
+{{#each pics}}
+  <div class="grid-item">
+    <form method="post" action="/like" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="picid" value="{{_id}}">
+    <div class="card">
+      <img class="card-img-top" src="{{url}}" alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text">{{description}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      <p>Name<span class="pull-right"><button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-heart"></i> {{likes.length}}</button>
+    </div>
+    </div>
+    </form>
+  </div>
+{{/each}}
+</div>
 </div>

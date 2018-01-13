@@ -1,0 +1,28 @@
+
+<div class="container">
+<div class="grid">
+<div class="grid-sizer"></div>
+{{#each pics}}
+  <div class="grid-item">
+    <div class="card">
+      <form method="post" action="/delete" enctype="application/x-www-form-urlencoded">
+      <input type="hidden" name="picid" value="{{_id}}">
+      <button type="submit" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </form>
+      <form method="post" action="/like" enctype="application/x-www-form-urlencoded">
+      <input type="hidden" name="picid" value="{{_id}}">
+      <img class="card-img-top" src="{{url}}" alt="Card image cap">  
+    <div class="card-body">
+      <p class="card-text">{{description}}</p>
+    </div>
+    <div class="card-footer text-muted">
+      <p>Name<span class="pull-right"><button type="submit" class="btn btn-secondary btn-sm"><i class="fa fa-heart"></i> {{likes.length}}</button>
+    </div>
+    </div>
+    </form>
+  </div>
+{{/each}}
+</div>
+</div>

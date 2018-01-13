@@ -8,7 +8,7 @@ var app = express();
 //MONGO AND MONGOOSE  see http://mongoosejs.com/docs/index.html
 const mongo = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
-var dbURL = "mongodb://nightlife-app:c4rr07qu33n@ds237717.mlab.com:37717/night-life-app";
+var dbURL = "mongodb://squinterest-app:c4rr07qu33n@ds255347.mlab.com:55347/squinterest";
 
 mongoose.connect(dbURL,{ useMongoClient: true });
 mongoose.Promise = global.Promise;
@@ -21,17 +21,14 @@ var userSchema = new mongoose.Schema({
 	twitterId: String
 },{collection:'users'});
 var User = mongoose.model("User",userSchema);
-//Businesses
-var businessSchema = new mongoose.Schema({
-	location : String,
-	id : String,
-	name : String,
-	rating : String,
+//Pics
+var picSchema = new mongoose.Schema({
 	url : String,
-	img_url : String,
-	rsvp : [String]
-},{collection:"businesses"});
-var Business = mongoose.model("Business",businessSchema);
+  description: String,
+  userid : String,
+	likes : [String]
+},{collection:"pics"});
+var Pic = mongoose.model("Pic",picSchema);
 
 //BODY PARSER https://github.com/expressjs/body-parser
 const bodyParser = require("body-parser");
@@ -110,8 +107,88 @@ passport.use(new TwitterStrategy({
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.render("all", {user:req.user});
+  Pic.find({}, function(err, pics) {
+    if (err) {
+      console.log("Error fetching Pics: " + err);
+      res.redirect("/");
+    }
+    res.render("all", {user:req.user,pics: pics});
+  }); 
+
 });
+app.post("/add", function(req,res) {
+//  if(req.user) {
+    var newPic = new Pic();
+    newPic.url = req.body.picurl;
+    newPic.description = req.body.picdesc;  
+    newPic.userid = "test";
+    newPic.likes = [];
+
+    newPic.save( function(err) {
+      if(err) {
+        console.log("Error adding new Pic: " + err);
+        res.redirect('/');
+      }
+      res.redirect('/');
+    });
+//  } else {
+//    res.redirect('/');
+//  }
+});
+app.get('/my', function(req,res) {
+  Pic.find({userid:"test"}, function(err, pics) {
+    if(err) {
+      console.log("Error fetching my Pics: " + err);
+    }
+    console.log(pics);
+    res.render('my', {user:req.user,pics:pics});
+  });
+});
+app.post("/like", function(req,res) {
+//  if(req.user) {
+  Pic.findOne({_id:req.body.picid}, function (err, pic) {
+    if(err) {
+      console.log("Error fetching Pic: " + err);
+      res.redirect('/');
+    }
+    var liked = false;
+    for(var i = 0; i < pic.likes.length; i++) {
+      if(pic.likes[i] == "test") {
+        liked = true;
+        pic.likes.splice(i,1);
+      }
+    }
+    if(!liked) {
+      pic.likes.push("test");
+    }
+    pic.save( function (err) {
+      if(err) {
+        console.log("Error saving Pic: " + err);
+        res.redirect('/');
+      }      
+      res.redirect('/');
+    });
+  });
+
+//  } else {
+//    res.redirect('/auth/twitter');
+//  }
+});
+app.post("/delete", function (req,res) {
+//  if(req.user) {
+  Pic.remove({_id:req.body.picid}, function(err) {
+    if(err) {
+      console.log("Error removing Pic: " + err);
+      res.redirect('/');
+    }
+    res.redirect('/');
+  });
+
+//  } else {
+//    res.redirect('/auth/twitter');
+//  }
+})
+
 
 app.get("/auth/twitter", passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }),
@@ -121,6 +198,6 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 });
 
 //PORT========================================================================
-var listener = app.listen(process.env.PORT,function() {
+var listener = app.listen(8080,function() {
     console.log("Your app is listening on port " + listener.address().port);
 });

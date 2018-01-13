@@ -8,10 +8,44 @@ body {
   background-color : #0F7173;
   font-family: 'Roboto Mono', monospace;
   font-weight: bold;
+  font-size: 15px;
 }
 .myNav a {
   color : #EF8354;
 }
 .myNav a:hover {
   color : #D8A47F;
+}
+.addPic {
+  margin : 0px 3px 0px 3px;
+  width : 30px;
+}
+form {
+  padding: 0px;
+  margin: 0px;
+}
+.addPicDropdown {
+  padding: 5px;
+}
+.addPicInput {
+  width : 50px;
+}
+.addPicInput input {
+  margin-bottom : 5px;
+}
+.addPicInput input[type="text"]
+{
+    font-size:10px;
+}
+.addPicInput input[type="url"]
+{
+    font-size:10px;
+}
+.close {
+  position:absolute;
+  right : 2px;
+}
+.grid-sizer,
+.grid-item {
+  width : 20%;
 }
